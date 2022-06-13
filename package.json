@@ -1,0 +1,19 @@
+{
+  "name": "quick-app",
+  "version": "1.0.0",
+  "description": "quick node.js http app",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "node.js",
+    "api",
+    "http"
+  ],
+  "author": "Rafael Souto",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
