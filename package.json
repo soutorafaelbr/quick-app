@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "quick node.js http app",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "test",
     "start": "nodemon index.js"
