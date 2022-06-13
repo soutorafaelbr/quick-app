@@ -1,12 +1,12 @@
-const express = require('express');
+import express from 'express';
+import eventController from '../Controllers/event.controller.js';
+import balanceController from '../Controllers/balance.controller.js';
+import resetController from '../Controllers/reset.controller.js';
 
 const routes = express.Router();
-const eventController = require('../Controllers/event.controller');
-const balanceController = require('../Controllers/balance.controller');
-const resetController = require('../Controllers/reset.controller');
 
 routes.get('/event', eventController.get);
 routes.get('/balance', balanceController.get);
 routes.get('/reset', resetController.get);
 
-module.exports = routes;
+export default routes;
