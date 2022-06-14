@@ -5,7 +5,7 @@ import resetController from '../Controllers/reset.controller.js';
 
 const routes = express.Router();
 
-routes.get('/event', eventController.get);
+routes.post('/event', eventController.post);
 routes.get('/balance', balanceController.get);
 routes.get('/reset', resetController.get);
 
