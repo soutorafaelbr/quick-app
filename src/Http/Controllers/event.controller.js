@@ -7,6 +7,13 @@ export default {
         const {type, destination, amount} = req.body;
 
         res.status(httpStatusesEnum.HTTP_CREATED)
-            .send(eventService.store(new EventStoreDTO(type, destination, amount)));
+            .send(eventService.createAccount(new EventStoreDTO(type, destination, amount)));
+    },
+
+    put(req, res) {
+        const {type, destination, amount} = req.body;
+
+        res.status(httpStatusesEnum.HTTP_CREATED)
+            .send(eventService.createAccount(new EventStoreDTO(type, destination, amount)));
     }
 }
