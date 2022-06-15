@@ -6,7 +6,13 @@ export default {
     post(req, res) {
         const {type, destination, amount} = req.body;
 
-        res.status(httpStatusesEnum.HTTP_CREATED)
+        try {
+            res.status(httpStatusesEnum.HTTP_CREATED)
             .send(eventService.post(new EventStoreDTO(type, destination, amount)));
+        } catch (error) {
+            res.status(httpStatusesEnum.HTTP_NOT_FOUND)
+                .type('Content-Type', 'text/plain')
+                .send('0');
+        }
     },
 }

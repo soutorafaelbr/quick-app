@@ -1,9 +1,14 @@
+import AccountNotFound from "../Exceptions/accountNotFound.exception";
 import accountStub from "./account.stub";
 
 export default {
     
 
     post(eventStoreDto) {
+        if (eventStoreDto.destination != accountStub.id) {
+            throw new AccountNotFound;
+        }
+        
         switch (eventStoreDto.type) {
             case 'deposit':
                 this.createAccount(eventStoreDto);

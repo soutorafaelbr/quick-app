@@ -12,12 +12,24 @@ describe('given valid request when post /balance', () => {
             .send({type:'deposit', destination:100, amount:10})
             .expect(statuses.HTTP_CREATED)
     });
-    
-    it('responds with HTTP 201 CREATED', async () => {
+});
+
+describe('given invalid account id when post /balance', () => {
+    it('responds with HTTP 404 NOT FOUND', async () => {
         await request
             .post('/event')
             .set({'Content-Type': 'application/json'})
-            .send({type:'deposit', destination:100, amount:20})
-            .expect(statuses.HTTP_CREATED)
+            .send({type:'deposit', destination:300, amount:10})
+            .expect(statuses.HTTP_NOT_FOUND)
+    });
+
+    it('responds with number 0 in the body', async () => {
+        await request
+            .post('/event')
+            .set({'Content-Type': 'application/json'})
+            .send({type:'deposit', destination:300, amount:10})
+            .expect(
+                (response) => expect(response.body.toString()).toBe('0') 
+            )
     });
 });

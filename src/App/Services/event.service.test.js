@@ -23,3 +23,9 @@ describe('given valid dto on calling deposit in account', () => {
         expect(response.destination.balance).toBe(amount);
     });
 });
+
+describe('given invalid destination when withdrawing value', () => {
+    it('throws account not found exception', () => {
+        expect(() => {eventService.post(1234)}).toThrow('Account Not Found');
+    });
+});
