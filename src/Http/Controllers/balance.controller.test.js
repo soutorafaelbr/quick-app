@@ -14,6 +14,15 @@ describe('given invalid account when balance is requested ', () => {
                 response => expect(response.statusCode).toBe(statuses.HTTP_NOT_FOUND)
             );
     });
+
+    it('responds with number 0 in the body', async () => {
+        await request
+            .get('/balance')
+            .query({account_id:'1234'})
+            .expect(
+                (response) => expect(response.body.toString()).toBe('0') 
+            )
+    });
 });
 
 describe('given valid account when balance is requested ', () => {

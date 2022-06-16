@@ -9,7 +9,9 @@ export default {
                 .send(`${balanceService.getByAccountId(req.query.account_id)}`);
 
         } catch (err) {
-            res.status(statuses.HTTP_NOT_FOUND).send();
+            res.status(statuses.HTTP_NOT_FOUND)
+                .type('Content-Type', 'text/plain')
+                .send('0');
         };
     },
 }
