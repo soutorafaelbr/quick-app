@@ -1,5 +1,5 @@
 import EventStoreDTO from '../DTOs/eventStore.dto';
-import {account} from './account.stub';
+import {account, origin, destination} from './account.stub';
 import eventService from './event.service';
 
 describe('given valid dto on calling create account', () => {
@@ -39,5 +39,27 @@ describe('given valid request on calling withdraw from a account', () => {
 
         expect(response.origin.id).toBe(dto.origin);
         expect(response.origin.balance).toBe(amount);
+    });
+
+    it('throws account not found exception', () => {
+        expect(() => {eventService.post(1234)}).toThrow('Account Not Found');
+    });
+});
+
+describe('given valid request on calling transfer from a account to other', () => {
+    it('responds with id and balance of destination', () => {
+        const dto = new EventStoreDTO('transfer', 5, destination.id, origin.id);
+        
+        const response = eventService.transfer(dto);
+
+        expect(response.origin.id).toBe(dto.origin);
+        expect(response.origin.balance).toBe(origin.balance - dto.amount);
+
+        expect(response.destination.id).toBe(dto.destination);
+        expect(response.destination.balance).toBe(destination.balance + dto.amount);
+    });
+    
+    it('throws account not found exception', () => {
+        expect(() => {eventService.post(1234)}).toThrow('Account Not Found');
     });
 });

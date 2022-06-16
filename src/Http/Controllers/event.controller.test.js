@@ -88,3 +88,24 @@ describe('given valid request when making transfer', () => {
             )
     });
 });
+
+
+describe('given valid request when making transfer', () => {
+    it('responds with HTTP 404 NOT FOUND', async () => {
+        await request
+            .post('/event')
+            .set({'Content-Type': 'application/json'})
+            .send({type:'transfer', origin: 200, destination:200, amount:10})
+            .expect(statuses.HTTP_NOT_FOUND)
+    });
+
+    it('responds with number 0 in the body', async () => {
+        await request
+            .post('/event')
+            .set({'Content-Type': 'application/json'})
+            .send({type:'transfer', origin: 200, destination:200, amount:10})
+            .expect(
+                (response) => expect(response.body.toString()).toBe('0') 
+            )
+    });
+});
