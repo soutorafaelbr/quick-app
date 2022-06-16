@@ -1,5 +1,5 @@
 import EventStoreDTO from '../DTOs/eventStore.dto';
-import accountStub from './account.stub';
+import {account} from './account.stub';
 import eventService from './event.service';
 
 describe('given valid dto on calling create account', () => {
@@ -18,7 +18,7 @@ describe('given valid dto on calling deposit in account', () => {
         const dto = new EventStoreDTO('deposit', 100, 10);
         
         const response = eventService.depositOnAccount(dto);
-        const amount = accountStub.balance + dto.amount;
+        const amount = account.balance + dto.amount;
         expect(response.destination.id).toBe(dto.id);
         expect(response.destination.balance).toBe(amount);
     });
@@ -35,7 +35,7 @@ describe('given valid request on calling withdraw from a account', () => {
         const dto = new EventStoreDTO('deposit', 100, 5, 100);
         
         const response = eventService.withdraw(dto);
-        const amount = accountStub.balance - dto.amount;
+        const amount = account.balance - dto.amount;
 
         expect(response.origin.id).toBe(dto.origin);
         expect(response.origin.balance).toBe(amount);

@@ -1,11 +1,11 @@
 import AccountNotFound from "../Exceptions/accountNotFound.exception";
-import accountStub from "./account.stub";
+import {account, destination, origin} from "./account.stub";
 
 export default {
     
 
     post(eventStoreDto) {
-        if (eventStoreDto.destination != accountStub.id) {
+        if (! [account.id, destination.id, origin.id].includes(eventStoreDto.destination)) {
             throw new AccountNotFound;
         }
 
@@ -14,11 +14,13 @@ export default {
                 return this.createAccount(eventStoreDto);
             case 'withdraw':
                 return this.withdraw(eventStoreDto);
+            case 'transfer':
+                return this.transfer(eventStoreDto);
         }
     },
 
     createAccount(eventStoreDTO) {
-        if (accountStub.id == eventStoreDTO.destination) {
+        if (account.id == eventStoreDTO.destination) {
             return this.depositOnAccount(eventStoreDTO);
         }
 
@@ -34,7 +36,7 @@ export default {
         return {
             destination: {
                 id: eventStoreDTO.id, 
-                balance: accountStub.balance + eventStoreDTO.amount
+                balance: account.balance + eventStoreDTO.amount
             }
         };
     },
@@ -43,8 +45,21 @@ export default {
         return {
             origin: {
                 id: eventStoreDTO.origin, 
-                balance: accountStub.balance - eventStoreDTO.amount
+                balance: account.balance - eventStoreDTO.amount
             }
         };
+    },
+
+    transfer(eventStoreDTO) {
+        return {
+            origin: {
+                id: eventStoreDTO.origin,
+                balance: origin.balance - eventStoreDTO.amount
+            },
+            destination: {
+                id: eventStoreDTO.destination,
+                balance:  destination.balance + eventStoreDTO.amount
+            }
+        }
     }
 }
