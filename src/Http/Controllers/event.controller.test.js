@@ -9,7 +9,7 @@ describe('given valid request when making a deposit', () => {
         await request
             .post('/event')
             .set({'Content-Type': 'application/json'})
-            .send({type:'deposit', destination:100, amount:10})
+            .send({type:'deposit', destination:100, amount:10, origin: 100})
             .expect(statuses.HTTP_CREATED)
     });
 });

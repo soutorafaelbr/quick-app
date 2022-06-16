@@ -8,7 +8,7 @@ export default {
 
         try {
             res.status(httpStatusesEnum.HTTP_CREATED)
-            .send(eventService.post(new EventStoreDTO(type, destination, amount, origin)));
+            .send(eventService.post(new EventStoreDTO(type, amount, destination, origin)));
         } catch (error) {
             res.status(httpStatusesEnum.HTTP_NOT_FOUND)
                 .type('Content-Type', 'text/plain')

@@ -4,7 +4,7 @@ import eventService from './event.service';
 
 describe('given valid dto on calling create account', () => {
     it('responds with id and balance of destination', () => {
-        const dto = new EventStoreDTO('deposit', 1234, 10);
+        const dto = new EventStoreDTO('deposit', 10, 1234, 100);
         
         const response = eventService.createAccount(dto);
 
