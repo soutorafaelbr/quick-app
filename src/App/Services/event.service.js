@@ -8,10 +8,12 @@ export default {
         if (eventStoreDto.destination != accountStub.id) {
             throw new AccountNotFound;
         }
-        
+
         switch (eventStoreDto.type) {
             case 'deposit':
-                this.createAccount(eventStoreDto);
+                return this.createAccount(eventStoreDto);
+            case 'withdraw':
+                return this.withdraw(eventStoreDto);
         }
     },
 
@@ -33,6 +35,15 @@ export default {
             destination: {
                 id: eventStoreDTO.id, 
                 balance: accountStub.balance + eventStoreDTO.amount
+            }
+        };
+    },
+
+    withdraw(eventStoreDTO) {
+        return {
+            origin: {
+                id: eventStoreDTO.origin, 
+                balance: accountStub.balance - eventStoreDTO.amount
             }
         };
     }

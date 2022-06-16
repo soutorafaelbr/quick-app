@@ -29,3 +29,15 @@ describe('given invalid destination when withdrawing value', () => {
         expect(() => {eventService.post(1234)}).toThrow('Account Not Found');
     });
 });
+
+describe('given valid request on calling withdraw from a account', () => {
+    it('responds with id and balance of destination', () => {
+        const dto = new EventStoreDTO('deposit', 100, 5, 100);
+        
+        const response = eventService.withdraw(dto);
+        const amount = accountStub.balance - dto.amount;
+
+        expect(response.origin.id).toBe(dto.origin);
+        expect(response.origin.balance).toBe(amount);
+    });
+});

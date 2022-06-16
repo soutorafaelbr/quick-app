@@ -4,11 +4,11 @@ import eventService from '../../App/Services/event.service';
 
 export default {
     post(req, res) {
-        const {type, destination, amount} = req.body;
+        const {type, destination, amount, origin} = req.body;
 
         try {
             res.status(httpStatusesEnum.HTTP_CREATED)
-            .send(eventService.post(new EventStoreDTO(type, destination, amount)));
+            .send(eventService.post(new EventStoreDTO(type, destination, amount, origin)));
         } catch (error) {
             res.status(httpStatusesEnum.HTTP_NOT_FOUND)
                 .type('Content-Type', 'text/plain')
